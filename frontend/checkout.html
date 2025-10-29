@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - SnapBuy</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2><a href="index.html">SnapBuy</a></h2>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Checkout</h1>
+        
+        <div class="checkout-layout">
+            <div class="checkout-form">
+                <h3>Shipping Address</h3>
+                <form id="checkoutForm">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <textarea id="address" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pincode">Pincode</label>
+                            <input type="text" id="pincode" required>
+                        </div>
+                    </div>
+
+                    <h3>Payment Method</h3>
+                    <div class="payment-methods">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="card" checked>
+                            Credit/Debit Card
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="upi">
+                            UPI
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="cod">
+                            Cash on Delivery
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-full">Place Order</button>
+                </form>
+            </div>
+
+            <div class="order-summary">
+                <h3>Order Summary</h3>
+                <div id="checkoutItems">
+                    <!-- Order items loaded by JavaScript -->
+                </div>
+                <div class="summary-total">
+                    <div class="summary-item">
+                        <span>Total:</span>
+                        <span id="orderTotal">₹0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/cart.js"></script>
+</body>
+</html>

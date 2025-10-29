@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - SnapBuy</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2><a href="index.html" style="text-decoration: none; color: #007bff;">SnapBuy</a></h2>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="cart.html" class="nav-link">Cart</a>
+                <a href="orders.html" class="nav-link">Orders</a>
+                <a href="profile.html" class="nav-link active">Profile</a>
+                <button onclick="logout()" class="btn-outline">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>My Profile</h1>
+        
+        <div class="profile-container">
+            <div class="profile-card">
+                <h3>Personal Information</h3>
+                <form id="profileForm">
+                    <div class="form-group">
+                        <label for="profileName">Full Name</label>
+                        <input type="text" id="profileName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileEmail">Email</label>
+                        <input type="email" id="profileEmail" name="email" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="profilePhone">Phone Number</label>
+                        <input type="tel" id="profilePhone" name="phone" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Update Profile</button>
+                </form>
+            </div>
+
+            <div class="profile-actions">
+                <div class="action-card">
+                    <h3>Quick Actions</h3>
+                    <a href="orders.html" class="btn-outline btn-full">View My Orders</a>
+                    <a href="products.html" class="btn-outline btn-full">Continue Shopping</a>
+                    <button onclick="logout()" class="btn-outline btn-full" style="background: #dc3545; color: white; border-color: #dc3545;">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="message" class="message"></div>
+
+    <script>
+        // Load user profile
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            document.getElementById('profileName').value = currentUser.name || '';
+            document.getElementById('profileEmail').value = currentUser.email || '';
+            document.getElementById('profilePhone').value = currentUser.phone || '';
+
+            // Update profile form
+            document.getElementById('profileForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(e.target);
+                const profileData = {
+                    name: formData.get('name'),
+                    phone: formData.get('phone')
+                };
+
+                try {
+                    // In a real app, you would call an API to update the profile
+                    currentUser.name = profileData.name;
+                    currentUser.phone = profileData.phone;
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+                    showMessage('Profile updated successfully!', 'success');
+                } catch (error) {
+                    showMessage('Error updating profile', 'error');
+                }
+            });
+        });
+
+        function showMessage(message, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = message;
+            messageDiv.className = `message ${type}`;
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('cart');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

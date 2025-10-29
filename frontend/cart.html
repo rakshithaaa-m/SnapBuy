@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - SnapBuy</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2><a href="index.html">SnapBuy</a></h2>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="cart.html" class="nav-link active">Cart</a>
+                <a href="orders.html" class="nav-link">Orders</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Shopping Cart</h1>
+        
+        <div class="cart-layout">
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items loaded by JavaScript -->
+                <div class="empty-cart" id="emptyCart">
+                    <p>Your cart is empty</p>
+                    <a href="products.html" class="btn-primary">Continue Shopping</a>
+                </div>
+            </div>
+
+            <div class="cart-summary">
+                <h3>Order Summary</h3>
+                <div class="summary-item">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">₹0</span>
+                </div>
+                <div class="summary-item">
+                    <span>Tax (18%):</span>
+                    <span id="tax">₹0</span>
+                </div>
+                <div class="summary-item total">
+                    <span>Total:</span>
+                    <span id="total">₹0</span>
+                </div>
+                <button class="btn-primary btn-full" onclick="proceedToCheckout()">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/cart.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - SnapBuy</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #007bff;
+            margin: 0.5rem 0;
+        }
+        .admin-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2><a href="../index.html" style="text-decoration: none; color: #007bff;">SnapBuy Admin</a></h2>
+            </div>
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-link active">Dashboard</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="orders.html" class="nav-link">Orders</a>
+                <a href="../index.html" class="nav-link">View Store</a>
+                <button onclick="logout()" class="btn-outline">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        
+        <div class="admin-stats">
+            <div class="stat-card">
+                <h3>Total Users</h3>
+                <div class="stat-number" id="totalUsers">0</div>
+                <p>Registered Customers</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Products</h3>
+                <div class="stat-number" id="totalProducts">0</div>
+                <p>Available Items</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Orders</h3>
+                <div class="stat-number" id="totalOrders">0</div>
+                <p>Completed Transactions</p>
+            </div>
+            <div class="stat-card">
+                <h3>Revenue</h3>
+                <div class="stat-number" id="totalRevenue">₹0</div>
+                <p>Total Sales</p>
+            </div>
+        </div>
+
+        <div class="admin-actions">
+            <a href="products.html" class="btn-primary">Manage Products</a>
+            <a href="orders.html" class="btn-primary">View Orders</a>
+            <button class="btn-outline" onclick="generateReport()">Generate Report</button>
+            <button class="btn-outline" onclick="viewUsers()">Manage Users</button>
+        </div>
+
+        <div class="recent-activity">
+            <h2>Recent Orders</h2>
+            <div id="recentOrders">
+                <p>Loading recent orders...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/admin.js"></script>
+    <script>
+        function generateReport() {
+            alert('This would generate a sales report in a real application');
+        }
+
+        function viewUsers() {
+            alert('This would show user management in a real application');
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = '../login.html';
+        }
+    </script>
+</body>
+</html>

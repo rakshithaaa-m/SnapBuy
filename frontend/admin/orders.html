@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Orders - SnapBuy Admin</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2><a href="../index.html" style="text-decoration: none; color: #007bff;">SnapBuy Admin</a></h2>
+            </div>
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="orders.html" class="nav-link active">Orders</a>
+                <a href="../index.html" class="nav-link">View Store</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Manage Orders</h1>
+
+        <!-- Order Filters -->
+        <div class="filters" style="margin: 2rem 0;">
+            <select id="statusFilter" onchange="filterOrders()">
+                <option value="all">All Status</option>
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="shipped">Shipped</option>
+                <option value="delivered">Delivered</option>
+            </select>
+        </div>
+
+        <!-- Orders List -->
+        <div class="orders-list">
+            <div id="ordersContainer">
+                <!-- Orders will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample orders data
+        const orders = [
+            { 
+                id: 1, 
+                orderNumber: 'ORD001', 
+                customer: 'John Doe', 
+                total: 3598, 
+                status: 'delivered',
+                date: '2024-01-15',
+                items: 2
+            },
+            { 
+                id: 2, 
+                orderNumber: 'ORD002', 
+                customer: 'Jane Smith', 
+                total: 4999, 
+                status: 'shipped',
+                date: '2024-01-16',
+                items: 1
+            },
+            { 
+                id: 3, 
+                orderNumber: 'ORD003', 
+                customer: 'Mike Johnson', 
+                total: 2299, 
+                status: 'pending',
+                date: '2024-01-17',
+                items: 3
+            }
+        ];
+
+        function loadOrders() {
+            const container = document.getElementById('ordersContainer');
+            const statusFilter = document.getElementById('statusFilter').value;
+            
+            const filteredOrders = statusFilter === 'all' 
+                ? orders 
+                : orders.filter(order => order.status === statusFilter);
+
+            if (filteredOrders.length === 0) {
+                container.innerHTML = '<p>No orders found</p>';
+                return;
+            }
+
+            container.innerHTML = filteredOrders.map(order => `
+                <div class="order-card" style="background: white; padding: 1.5rem; margin: 1rem 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h3>Order ${order.orderNumber}</h3>
+                            <p>Customer: ${order.customer}</p>
+                            <p>Date: ${order.date} | Items: ${order.items}</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 1.25rem; font-weight: bold; color: #007bff;">₹${order.total}</div>
+                            <span class="order-status status-${order.status}">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+                        <button class="btn-primary" onclick="viewOrderDetails(${order.id})">View Details</button>
+                        <select onchange="updateOrderStatus(${order.id}, this.value)">
+                            <option value="pending" ${order.status === 'pending' ? 'selected' : ''}>Pending</option>
+                            <option value="confirmed" ${order.status === 'confirmed' ? 'selected' : ''}>Confirmed</option>
+                            <option value="shipped" ${order.status === 'shipped' ? 'selected' : ''}>Shipped</option>
+                            <option value="delivered" ${order.status === 'delivered' ? 'selected' : ''}>Delivered</option>
+                        </select>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterOrders() {
+            loadOrders();
+        }
+
+        function viewOrderDetails(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                alert(`Order Details:\n\nOrder: ${order.orderNumber}\nCustomer: ${order.customer}\nTotal: ₹${order.total}\nStatus: ${order.status}\nDate: ${order.date}`);
+            }
+        }
+
+        function updateOrderStatus(orderId, newStatus) {
+            if (confirm(`Change order status to ${newStatus}?`)) {
+                const order = orders.find(o => o.id === orderId);
+                if (order) {
+                    order.status = newStatus;
+                    alert(`Order status updated to ${newStatus}`);
+                    loadOrders();
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadOrders);
+    </script>
+</body>
+</html>
